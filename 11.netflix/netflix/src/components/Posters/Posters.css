@@ -1,0 +1,9 @@
+.Posters {
+    display: flex;
+    overflow-x: scroll;
+    margin-top: 5px;
+}
+
+.Posters::-webkit-scrollbar {
+    display: none !important;
+}
