@@ -6,7 +6,11 @@ import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
+import { LoginContext } from '../../LoginProvider';
+import { useHistory } from 'react-router-dom';
 function Header() {
+  const loginContext = React.useContext(LoginContext);
+  const history = useHistory();
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -34,7 +38,24 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          <span>{
+
+            loginContext.isLoggedIn ? (
+              <div>
+                 {`Hi ${loginContext.user.email}`}
+                 <div style={{cursor:'pointer'}} 
+                    onClick={ loginContext.handleLogout }>Logout</div>
+              </div>
+            ) : (
+              <div style={ {cursor: 'pointer'}}
+                    onClick={ () => {
+                      history.push('/login');
+                    } }>  
+                Login
+              </div>
+            )
+            
+          }</span>      
           <hr />
         </div>
 
@@ -42,7 +63,11 @@ function Header() {
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
+            <span  onClick={
+              () => {
+                history.push('/create');
+              }
+            } >SELL</span>
           </div>
         </div>
       </div>
